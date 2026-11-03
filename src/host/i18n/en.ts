@@ -589,7 +589,8 @@ export const en: MessageTree = {
     tabs: {
       resources: 'Resources',
       records: 'Records',
-      progress: 'Progress'
+      progress: 'Progress',
+      story: 'Story'
     },
     progress: {
       cycleDisplay: 'Cycle (week N)',
