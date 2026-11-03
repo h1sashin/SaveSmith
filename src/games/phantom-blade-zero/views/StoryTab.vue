@@ -38,8 +38,9 @@ function branch(id: string, branchId: string, value: string) {
 function npcState(id: string, value: string) {
   if (slot.value) editor.markDirty(() => setNpcIdleType(slot.value!, id, value))
 }
-function visible(id: string, value: boolean) {
-  if (slot.value) editor.markDirty(() => setNpcVisible(slot.value!, id, value))
+function visible(id: string, value: unknown) {
+  if (typeof value !== 'boolean' || !slot.value) return
+  editor.markDirty(() => setNpcVisible(slot.value!, id, value))
 }
 function addTag(id: string) {
   const value = window.prompt('Enter the exact event tag to add')
