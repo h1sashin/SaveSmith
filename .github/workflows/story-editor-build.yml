@@ -1,0 +1,40 @@
+name: Story Editor Windows build
+
+on:
+  push:
+    branches: [story-editor-build]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+      - name: Install dependencies
+        run: npm ci
+      - name: Unit tests
+        run: npm test
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Rust tests
+        run: cargo test --manifest-path src-tauri/Cargo.toml
+      - name: Build portable Windows executable
+        run: npm run dist
+      - name: Upload portable executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: SaveSmith-Story-Editor-windows-x64
+          path: src-tauri/target/release/SaveSmith-*-windows-x64.exe
+          if-no-files-found: error
+          retention-days: 30

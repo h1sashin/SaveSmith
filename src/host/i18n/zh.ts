@@ -584,7 +584,8 @@ export const zh: MessageTree = {
     tabs: {
       resources: '资源',
       records: '战绩',
-      progress: '进度'
+      progress: '进度',
+      story: '剧情'
     },
     progress: {
       cycleDisplay: '周目（第 N 周目）',
