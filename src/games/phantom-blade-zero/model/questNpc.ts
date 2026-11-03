@@ -39,7 +39,7 @@ export function projectQuests(slot: PbzEditableSlot): PbzQuestView[] {
       return [{ branchId: b.BranchID, branchType: typeof b.BranchType === 'string' ? b.BranchType : '',
         tasksProgress: Array.isArray(b.TasksProgress) && b.TasksProgress.every((n: unknown) => typeof n === 'number') ? b.TasksProgress : null }]
     }) : []
-    return [{ questClass: q.QuestClass, questId: q.QuestClass.split('/').at(-1) ?? q.QuestClass,
+    return [{ questClass: q.QuestClass, questId: q.QuestClass.split('/').pop() ?? q.QuestClass,
       completion: typeof q.QuestCompletion === 'string' ? q.QuestCompletion : '', branches }]
   }).sort((a: PbzQuestView, b: PbzQuestView) => a.questId.localeCompare(b.questId))
 }
